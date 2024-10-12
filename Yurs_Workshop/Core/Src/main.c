@@ -89,15 +89,26 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  uint8_t buttonPressed = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  { //tell students to add these 2 lines
-	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-	HAL_Delay(500);
+  { //we go over the logic behind this
+	  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET)
+	      {
+	        if (!buttonPressed)
+	        {
+	          HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_13);
+	          buttonPressed = 1;
+	        }
+	      }
+	      else
+	      {
+	        buttonPressed = 0;
+	      }
+	      HAL_Delay(50);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

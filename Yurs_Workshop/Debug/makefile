@@ -60,8 +60,8 @@ all: main-build
 main-build: Yurs_Workshop.elf secondary-outputs
 
 # Tool invocations
-Yurs_Workshop.elf Yurs_Workshop.map: $(OBJS) $(USER_OBJS) /home/omen/Documents/Yurs_Workshop/STM32F302R8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Yurs_Workshop.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/omen/Documents/Yurs_Workshop/STM32F302R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Yurs_Workshop.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Yurs_Workshop.elf Yurs_Workshop.map: $(OBJS) $(USER_OBJS) /home/omen/yurs_stm32_workshop/Yurs_Workshop/STM32F302R8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Yurs_Workshop.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/omen/yurs_stm32_workshop/Yurs_Workshop/STM32F302R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Yurs_Workshop.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
