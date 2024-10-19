@@ -89,27 +89,45 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  uint8_t buttonPressed = 0;
+  uint8_t buttonPressed = 0;                                         // This creates a small variable (8 bits) called 'buttonPressed'. 
+                                                                     // It keeps track of whether the button was already pressed to 
+                                                                     // prevent repeated toggling.
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  { //we go over the logic behind this
-	  if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET)
-	      {
-	        if (!buttonPressed)
-	        {
-	          HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_13);
-	          buttonPressed = 1;
-	        }
-	      }
-	      else
-	      {
-	        buttonPressed = 0;
-	      }
-	      HAL_Delay(50);
-    /* USER CODE END WHILE */
+  while (1)                                                          // 'while(1)' creates an infinite loop. This means the code 
+                                                                     // inside the loop keeps running over and over forever,
+                                                                     // because '1' always means true.
+  {
+      if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET)    // This reads the state of a button connected to GPIO Pin 13 on 
+                                                                     // port C (GPIOC). 'GPIO_PIN_RESET' means the button is pressed 
+                                                                     // (the circuit is closed).
+      {                                                              // When the button is pressed, the code inside this block will run.
+          if (!buttonPressed)                                        // This checks if the button wasn't pressed before (buttonPressed is 0). 
+                                                                     // '!' means "not", so it means "if buttonPressed is false".
+          {
+              HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_13);                // This toggles the state of an LED connected to GPIO Pin 13 on 
+                                                                     // port B (GPIOB). If the LED is on, it turns off, and if it's 
+                                                                     // off, it turns on.
+              buttonPressed = 1;                                     // We set 'buttonPressed' to 1 to mark that the button has been 
+                                                                     // pressed, preventing it from toggling the LED again until it's 
+                                                                     // released.
+          }
+      }
+      else                                                           // If the button is not pressed (GPIO_PIN_SET), this block will run.
+      {
+          buttonPressed = 0;                                         // Reset 'buttonPressed' to 0, allowing the button to toggle 
+                                                                     // the LED again when it is pressed next time.
+      }
+
+      HAL_Delay(50);                                                 // This adds a small delay of 50 milliseconds (50 thousandths 
+                                                                     // of a second). The delay helps debounce the button. Debouncing 
+                                                                     // means avoiding unintended fast toggling caused by mechanical 
+                                                                     // button 'bounce'.
+  }
+  /* USER CODE END WHILE */
+
 
     /* USER CODE BEGIN 3 */
   }
