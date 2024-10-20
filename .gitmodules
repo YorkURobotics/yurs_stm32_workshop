@@ -1,0 +1,3 @@
+[submodule "YURS_STM32_WS_v2"]
+	path = YURS_STM32_WS_v2
+	url = git@github.com:leroymusa/YURS_STM32_WS_v2.git
